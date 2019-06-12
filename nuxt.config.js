@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const Prismic = require('prismic-javascript')
 const PrismicConfig = require('./prismic.config')
 
 module.exports = {
