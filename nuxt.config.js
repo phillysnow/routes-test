@@ -69,7 +69,7 @@ module.exports = {
             let url = ''
             if (doc.type == 'homepage') {
               url = `/`
-            } else if (doc.type != 'page') {
+            } else if (doc.type == 'page') {
               url = `/${doc.type.replace('_', '/')}/${doc.uid}`
             } else {
               url = '/'
