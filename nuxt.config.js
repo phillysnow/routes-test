@@ -75,6 +75,7 @@ module.exports = {
               url = '/'
             }
             routes.push(url)
+            routes.push( { route: '/preview' })
           })
         })
       return routes
