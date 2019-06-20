@@ -56,31 +56,14 @@ module.exports = {
   modules: [
   ],
   generate: {
-    // fallback: true,
-    routes: async function() {
-      const routes = []
-      await Prismic.getApi(PrismicConfig.apiEndpoint)
-        .then(function(api) {
-          return api.query('', { pageSize: 100 }) // An empty query will return all the documents
-        })
-        .then(response => {
-          // response is the response object, response.results holds the documents
-          response.results.map(doc => {
-            let url = ''
-            if (doc.type == 'homepage') {
-              url = `/`
-            } else if (doc.type == 'page') {
-              url = `/${doc.type.replace('_', '/')}/${doc.uid}`
-            } else {
-              url = '/'
-            }
-            routes.push(url)
-          })
-        })
-      
-      routes.push({ route: '/preview' })
-      
-      return routes
+    routes: async function () {
+      const api = await Prismic.getApi(PrismicConfig.apiEndpoint)
+      const blogPosts = await api.query(
+        Prismic.Predicates.at("document.type", "page")
+      )
+      return blogPosts.results.map(element => {
+        return '/page/' + element.uid
+      });
     }
   },
   /*
